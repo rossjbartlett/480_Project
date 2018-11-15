@@ -70,7 +70,7 @@ public class Demo implements Constants{
 	    		+ "3. Place Order\n"
 	    		+ "4. Register Account\n"
 	    		+ "5. Quit\n"
-	    		+ "Enter your choice (1, 2, 3, 4, of 5):\n");
+	    		+ "Enter your choice:\n");
 	    return scanner.nextInt();
 	}
 	
