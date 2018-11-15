@@ -1,16 +1,24 @@
+import java.util.Scanner;
+
+import org.omg.PortableInterceptor.USER_EXCEPTION;
 
 public class Demo {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		Database database = new Database();
-		
-		//make some test users and documents
-		
-		OrdinaryBuyer rossOB = new OrdinaryBuyer("Ross Bartlett", "rossb1", "rjb123", "504 Maple Road", "403-321-9876");
-		Operator antoineOP = new Operator("Antoine Bizon", "antoineb1", "ab123", "123 Happy Lane", "403-123-4567");
-		RegisteredBuyer dylanRB = new RegisteredBuyer("Dylan Gordon", "dylang1", "dg123", "420 Green Street", "587-456-1234");
+	
+	 Database database;
+	 Scanner scanner;
+	 Account user;
+	 
+	 public Demo() {
+		database = new Database();
+		scanner = new Scanner(System.in);
+		user = null;
+	}
+	
+	private void initDemoDB() {
+		//insert some test users and documents
+		OrdinaryBuyer rossOB = new OrdinaryBuyer(1, "Ross Bartlett", "rossb1", "rb123", "504 Maple Road", "403-321-9876");
+		Operator antoineOP = new Operator(0, "Antoine Bizon", "antoineb1", "ab123", "123 Happy Lane", "403-123-4567");
+		RegisteredBuyer dylanRB = new RegisteredBuyer(2, "Dylan Gordon", "dylang1", "dg123", "420 Green Street", "587-456-1234");
 
 		database.addAccount(rossOB.getAccount());
 		database.addAccount(antoineOP.getAccount());
@@ -38,7 +46,63 @@ public class Demo {
 				"I am Tom Wilson - hockey player and proud father. I like hot dogs and the movie Up.\n", 
 				"342-WEQ-521-BDA-542", 9.75);
 		
+		database.addDocument(book);
+		database.addDocument(magazine);
+		database.addDocument(journal);
+	}
+	
+	private int menu(){
+		//TODO update this, copied from a prev class
+	    System.out.println("Please select one of the following operations:\n"
+	    		+ "1. Display flow list, average and median\n"
+	    		+ "2. Add data\n"
+	    		+ "3. Save data into the file\n"
+	    		+ "4. Remove data\n"
+	    		+ "5. Quit\n"
+	    		+ "Enter your choice (1, 2, 3, 4, of 5):\n");
+	    return scanner.nextInt();
+	}
+	
+	private void loginMenu() {
+		while(user==null) {
+		    System.out.print("Username: ");
+		    String username = scanner.nextLine();
+		    System.out.print("Password: ");
+		    String password = scanner.nextLine();
+		    user = database.login(username, password);
+		    if(user==null) {
+		    		System.out.println("Invalid authentication. Try again.");
+		    }
+		}
+		System.out.println("Welcome, "+user.getName()+".");
+	}
 
+	public static void main(String[] args) {
+		
+		Demo demo = new Demo();
+		
+		
+		demo.initDemoDB();//insert some test users and documents
+		
+		demo.loginMenu();
+		
+		//TODO: make the menu for each user type; use the example menu() above
+		
+		switch(demo.user.getType()) {
+		case 0:
+            //runOperatorMenu();
+            break;
+        case 1:
+        		//runOrdinaryBuyerMenu();
+            break;
+        case 2:
+        		//runRegisteredBuyerMenu();
+            break;
+        default:
+        		System.err.println("Error user type.");
+            System.exit(1);
+		}
+		
 	}
 
 }

@@ -31,4 +31,16 @@ public class Database {
 		     }
 		 }
 	}
+	
+	public Account login(String username, String pw) {
+		//checks authentication, returns the account if valid or null
+		ListIterator<Account> iterator = accounts.listIterator();
+		while (iterator.hasNext()) {
+		     Account next = iterator.next();
+		     if (next.getUsername().equals(username) && next.getPassword().equals(pw)) {
+		         return next;
+		     }
+		 }
+		return null;
+	}
 }
