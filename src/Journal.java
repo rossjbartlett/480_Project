@@ -6,4 +6,8 @@ public class Journal extends Document {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public String headerString() {
+		return ("Journal: "+title+" by "+authorName+", $"+price);
+	}
 }

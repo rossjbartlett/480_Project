@@ -4,11 +4,13 @@ import java.util.ListIterator;
 public class Database {
 	ArrayList<Account> accounts;
 	ArrayList<Document> inventory;
+	PromoList promoList;
+
 	
 	public Database() {
-		// TODO Auto-generated constructor stub
 		accounts = new ArrayList<>();
 		inventory = new ArrayList<>();
+		promoList = new PromoList();
 	}
 	
 	public void addAccount(Account a) {
@@ -42,5 +44,13 @@ public class Database {
 		     }
 		 }
 		return null;
+	}
+	
+	public void addToPromoList(Document a) {
+		promoList.addDocument(a);
+	}
+	
+	public PromoList getPromoList() {
+		return promoList;
 	}
 }

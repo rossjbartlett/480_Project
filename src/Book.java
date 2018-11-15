@@ -5,4 +5,9 @@ public class Book extends Document {
 		super(title, authorName, contents, iSBN, price);
 	}
 
+	@Override
+	public String headerString() {
+		return ("Book: "+title+" by "+authorName+", $"+price);
+	}
+
 }

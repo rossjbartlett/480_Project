@@ -1,10 +1,10 @@
 
 public abstract class Document {
-	private String title;
-	private String authorName;
-	private String contents;
-	private String ISBN;
-	private double price;
+	protected String title;
+	protected String authorName;
+	protected String contents;
+	protected String ISBN;
+	protected double price;
 	
 	public Document(String title, String authorName, String contents, String iSBN, double price) {
 		this.title = title;
@@ -14,5 +14,7 @@ public abstract class Document {
 		this.price = price;
 	}
 	
+	
+	public abstract String headerString();
 	
 }
