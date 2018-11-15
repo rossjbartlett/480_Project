@@ -32,6 +32,10 @@ public class Account {
 		return type;
 	}
 	
+	public void setType(int t) {
+		type= t;
+	}
+	
 
 	
 	

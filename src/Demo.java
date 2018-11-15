@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 import org.omg.PortableInterceptor.USER_EXCEPTION;
 
-public class Demo {
+public class Demo implements Constants{
 	
 	 Database database;
 	 Scanner scanner;
@@ -16,9 +16,9 @@ public class Demo {
 	
 	private void initDemoDB() {
 		//insert some test users and documents
-		OrdinaryBuyer rossOB = new OrdinaryBuyer(1, "Ross Bartlett", "rossb1", "rb123", "504 Maple Road", "403-321-9876");
-		Operator antoineOP = new Operator(0, "Antoine Bizon", "antoineb1", "ab123", "123 Happy Lane", "403-123-4567");
-		RegisteredBuyer dylanRB = new RegisteredBuyer(2, "Dylan Gordon", "dylang1", "dg123", "420 Green Street", "587-456-1234");
+		OrdinaryBuyer rossOB = new OrdinaryBuyer(ORDINARY_BUYER_TYPE, "Ross Bartlett", "rossb1", "rb123", "504 Maple Road", "403-321-9876");
+		Operator antoineOP = new Operator(OPERATOR_TYPE, "Antoine Bizon", "antoineb1", "ab123", "123 Happy Lane", "403-123-4567");
+		RegisteredBuyer dylanRB = new RegisteredBuyer(REGISTERED_BUYER_TYPE, "Dylan Gordon", "dylang1", "dg123", "420 Green Street", "587-456-1234");
 
 		database.addAccount(rossOB.getAccount());
 		database.addAccount(antoineOP.getAccount());
@@ -89,13 +89,13 @@ public class Demo {
 		//TODO: make the menu for each user type; use the example menu() above
 		
 		switch(demo.user.getType()) {
-		case 0:
+		case OPERATOR_TYPE:
             //runOperatorMenu();
             break;
-        case 1:
+        case ORDINARY_BUYER_TYPE:
         		//runOrdinaryBuyerMenu();
             break;
-        case 2:
+        case REGISTERED_BUYER_TYPE:
         		//runRegisteredBuyerMenu();
             break;
         default:
