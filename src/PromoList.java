@@ -2,13 +2,17 @@ import java.util.ArrayList;
 
 public class PromoList implements Subject{
 	
-	ArrayList<Document> promolist;
-	ArrayList<Observer> observers;
+	private ArrayList<Document> promolist;
+	private ArrayList<Observer> observers;
 
     public PromoList(){
         promolist = new ArrayList<>();
         observers = new ArrayList<>();
     }
+    
+    public ArrayList<Document> getPromolist() {
+		return promolist;
+	}
 
     @Override
     public void attach(Observer o){

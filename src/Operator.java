@@ -1,8 +1,8 @@
 
-public class Operator extends AccountHolder{
+public class Operator extends AccountHolder implements Constants{
 
-	public Operator(int type, String name, String username, String password, String address, String phoneNumber) {
-		super(type, name, username, password, address, phoneNumber);
+	public Operator(String name, String username, String password, String address, String phoneNumber) {
+		super(OPERATOR_TYPE, name, username, password, address, phoneNumber);
 	}
 
 }
