@@ -108,6 +108,118 @@ public class Demo implements Constants{
 		System.out.println();
 	}
 	
+	private void searchInventory()
+	{
+		System.out.println("How would you like to search the inventory?\n"
+				+ "1. Search by title\n"
+				+ "2. Search by author\n"
+				+ "3. Search by ISBN\n"
+				+ "4. Search by price\n"
+				+ "Enter your choice:");
+		
+		switch(getMenuSelection())
+		{
+		case 1:
+			System.out.println("Searching by title:");
+			searchByTitle();
+			break;
+		case 2:
+			System.out.println("Searching by Author:");
+			searchByAuthor();
+			break;
+		case 3:
+			System.out.println("Searching by ISBN:");
+			searchByISBN();
+			break;
+		case 4:
+			System.out.println("Searching by price:");
+			searchByPrice();
+			break;
+		default:
+			System.out.println("\n Not a valid input\n");
+			pressEnter();
+		}
+		System.out.println();
+	}
+	
+	private void searchByTitle()
+	{
+		System.out.print("Document Title: ");
+		String title = null;
+		while(title == null) {
+			title = scanner.nextLine();
+			title = scanner.nextLine();
+		}
+		for(Document d: database.getInventory())
+		{
+			if(d.title.equals(title))
+			{
+				System.out.println("\n" + d.headerString());
+			}
+		}
+	}
+	
+	private void searchByAuthor()
+	{
+		System.out.print("Document Author: ");
+		String author = null;
+		while(author == null) {
+			author = scanner.nextLine();
+			author = scanner.nextLine();
+		}
+		for(Document d: database.getInventory())
+		{
+			if(d.authorName.equals(author))
+			{
+				System.out.println("\n" + d.headerString());
+			}
+		}
+	}
+	private void searchByISBN()
+	{
+		System.out.print("Document ISBN: ");
+		String isbn = null;
+		while(isbn == null) {
+			isbn = scanner.nextLine();
+			isbn = scanner.nextLine();
+		}
+		for(Document d: database.getInventory())
+		{
+			if(d.ISBN.equals(isbn))
+			{
+				System.out.println("\n" + d.headerString());
+			}
+		}
+	}
+	private void searchByPrice()
+	{
+		System.out.print("Document Price: ");
+		double price = 0;
+		while(price == 0) {
+			price = scanner.nextDouble();
+		}
+		for(Document d: database.getInventory())
+		{
+			if(d.price == price)
+			{
+				System.out.println("\n" + d.headerString());
+			}
+		}
+	}
+	
+	private void placeOrder()
+	{
+		searchInventory();
+		
+		System.out.print("Please enter the title of the document you would like to order: ");
+		String title = scanner.nextLine();
+		System.out.print("\nPlease enter the author of the document you would like to order: ");
+		String author = scanner.nextLine();
+		
+		System.out.println("\n author: " + author + " title: " + title);
+		
+	}
+	
 	private int getMenuSelection() {
 		if(scanner.hasNextInt()) return scanner.nextInt();
 		else return -1; // they input a non-int
@@ -134,11 +246,11 @@ public class Demo implements Constants{
 			pressEnter();
 			break;
 		case 2:
-			//searchInventory();
+			searchInventory();
 			pressEnter();
 			break;
 		case 3:
-			//placeOrder();
+			placeOrder();
 			pressEnter();
 			break;
 		case 4:
@@ -182,11 +294,11 @@ public class Demo implements Constants{
 			pressEnter();
 			break;
 		case 3:
-			//searchInventory();
+			searchInventory();
 			pressEnter();
 			break;
 		case 4:
-			//placeOrder();
+			placeOrder();
 			pressEnter();
 			break;
 		case 5:
