@@ -216,9 +216,76 @@ public class Demo implements Constants{
 		System.out.print("\nPlease enter the author of the document you would like to order: ");
 		String author = scanner.nextLine();
 		
+		for(Document d: database.getInventory())
+		{
+			if(d.title.equals(title) && d.authorName.equals(author))
+			{
+				if(d.quantity > 0)
+				{
+					boolean validOrder= false;
+					int numOfCopies = -1;
+					while(!validOrder)
+					{
+					System.out.print("\nWe have " + d.quantity + " copies left, how many would you like to order? ");
+					
+						while(numOfCopies == -1)
+							numOfCopies = scanner.nextInt();
+						if(numOfCopies > d.quantity)
+						{
+							System.out.print("\nSorry we do not have that many copies available, would you like to try again? [Y/N] ");
+							String response = scanner.nextLine();
+							response = response.toLowerCase();
+							if(response.equals("n"))
+							{
+								return;
+							}
+						}
+						else
+						{
+							validOrder = true;
+						}
+					}
+					
+					if(validOrder)
+					{
+						enterShippingInfo();
+						makePayment(d, numOfCopies);
+						
+						Document a = d;
+						a.quantity = a.quantity - numOfCopies;
+						database.updateDocument(d, a);
+					}
+				}
+				else
+				{
+					System.out.println("Unfortunately we are all out of our copies of " + title);
+				}
+			}
+		}
+		
 		System.out.println("\n author: " + author + " title: " + title);
 		
 	}
+	
+	private void enterShippingInfo()
+	{
+		System.out.print("\nWhere would you like this sent to?\nCity: ");
+		String city = scanner.nextLine();
+		System.out.print("\nStreet: ");
+		String street = scanner.nextLine();
+		System.out.print("\nHouse/apartment number: ");
+		String houseNumber = scanner.nextLine();	// Assumed you could have aprtment '900a', so i used string instead of int
+		System.out.print("Country: ");
+		String country = scanner.nextLine();
+		
+		System.out.println("Your item will be shipped to " + houseNumber + " " + street + ", " + city + " " + country);
+	}
+	
+	private void makePayment(Document doc, int numOfCopies)
+	{
+		
+	}
+	
 	
 	private int getMenuSelection() {
 		if(scanner.hasNextInt()) return scanner.nextInt();

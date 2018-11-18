@@ -6,6 +6,11 @@ public class Magazine extends Document {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Magazine(Magazine document)
+	{
+		super(document);
+	}
+	
 	@Override
 	public String headerString() {
 		return ("Magazine: "+title+" by "+authorName+", $"+price);

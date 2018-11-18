@@ -5,6 +5,11 @@ public class Journal extends Document {
 		super(title, authorName, contents, iSBN, price);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Journal(Document document)
+	{
+		super(document);
+	}
 
 	@Override
 	public String headerString() {

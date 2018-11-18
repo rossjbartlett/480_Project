@@ -16,6 +16,16 @@ public abstract class Document {
 		quantity = 2;
 	}
 	
+	public Document(Document document)
+	{
+		title = document.title;
+		authorName = document.authorName;
+		contents = document.contents;
+		ISBN = document.ISBN;
+		price = document.price;
+		quantity = document.quantity;
+	}
+	
 	
 	public abstract String headerString();
 	
