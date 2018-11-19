@@ -152,7 +152,7 @@ public class Demo implements Constants{
 		}
 		for(Document d: database.getInventory())
 		{
-			if(d.title.equals(title))
+			if(d.title.toLowerCase().contains(title.toLowerCase()))
 			{
 				System.out.println("\n" + d.headerString());
 			}
@@ -169,7 +169,7 @@ public class Demo implements Constants{
 		}
 		for(Document d: database.getInventory())
 		{
-			if(d.authorName.equals(author))
+			if(d.authorName.toLowerCase().contains(author.toLowerCase()))
 			{
 				System.out.println("\n" + d.headerString());
 			}
@@ -226,13 +226,14 @@ public class Demo implements Constants{
 					int numOfCopies = -1;
 					while(!validOrder)
 					{
-					System.out.print("\nWe have " + d.quantity + " copies left, how many would you like to order? ");
-					
+						System.out.print("\nWe have " + d.quantity + " copies left, how many would you like to order? ");
+						numOfCopies = -1;
 						while(numOfCopies == -1)
 							numOfCopies = scanner.nextInt();
 						if(numOfCopies > d.quantity)
 						{
 							System.out.print("\nSorry we do not have that many copies available, would you like to try again? [Y/N] ");
+							scanner.nextLine();
 							String response = scanner.nextLine();
 							response = response.toLowerCase();
 							if(response.equals("n"))
@@ -270,15 +271,16 @@ public class Demo implements Constants{
 	private void enterShippingInfo()
 	{
 		System.out.print("\nWhere would you like this sent to?\nCity: ");
+		scanner.nextLine();
 		String city = scanner.nextLine();
-		System.out.print("\nStreet: ");
+		System.out.print("Street: ");
 		String street = scanner.nextLine();
-		System.out.print("\nHouse/apartment number: ");
+		System.out.print("House/apartment number: ");
 		String houseNumber = scanner.nextLine();	// Assumed you could have aprtment '900a', so i used string instead of int
-		System.out.print("Country: ");
-		String country = scanner.nextLine();
+		System.out.print("Province: ");
+		String province = scanner.nextLine();
 		
-		System.out.println("Your item will be shipped to " + houseNumber + " " + street + ", " + city + " " + country);
+		System.out.println("Your item will be shipped to " + houseNumber + " " + street + ", " + city + " " + province);
 	}
 	
 	private void makePayment(Document doc, int numOfCopies)
