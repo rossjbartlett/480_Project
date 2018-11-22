@@ -1,13 +1,13 @@
 import java.util.Scanner;
 
-public class Demo implements Constants{
+public class Client implements Constants{
 
 	Database database;
 	Scanner scanner;
 	AccountHolder currentUser;
 
-	public Demo() {
-		database = new Database();
+	public Client() {
+		database = Database.getInstance();
 		scanner = new Scanner(System.in);
 		currentUser = null;
 	}
@@ -404,7 +404,7 @@ public class Demo implements Constants{
 
 	public static void main(String[] args) {
 
-		Demo demo = new Demo();
+		Client demo = new Client();
 
 		demo.initDemoDB();//insert some test users and documents
 

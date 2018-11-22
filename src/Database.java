@@ -5,12 +5,22 @@ public class Database {
 	private ArrayList<AccountHolder> accounts;
 	private ArrayList<Document> inventory;
 	private PromoList promoList;
-
+	static private Database instance = null;
 	
-	public Database() {
+	private Database() {
 		accounts = new ArrayList<>();
 		inventory = new ArrayList<>();
 		promoList = new PromoList();
+	}
+	
+	static public Database getInstance()
+	{
+		if(instance == null)
+		{
+			instance = new Database();
+		}
+		
+		return instance;
 	}
 	
 	public void addAccount(AccountHolder a) {
