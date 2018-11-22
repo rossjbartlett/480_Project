@@ -108,186 +108,6 @@ public class Client implements Constants{
 		System.out.println();
 	}
 	
-	private void searchInventory()
-	{
-		System.out.println("How would you like to search the inventory?\n"
-				+ "1. Search by title\n"
-				+ "2. Search by author\n"
-				+ "3. Search by ISBN\n"
-				+ "4. Search by price\n"
-				+ "Enter your choice:");
-		
-		switch(getMenuSelection())
-		{
-		case 1:
-			System.out.println("Searching by title:");
-			searchByTitle();
-			break;
-		case 2:
-			System.out.println("Searching by Author:");
-			searchByAuthor();
-			break;
-		case 3:
-			System.out.println("Searching by ISBN:");
-			searchByISBN();
-			break;
-		case 4:
-			System.out.println("Searching by price:");
-			searchByPrice();
-			break;
-		default:
-			System.out.println("\n Not a valid input\n");
-			pressEnter();
-		}
-		System.out.println();
-	}
-	
-	private void searchByTitle()
-	{
-		System.out.print("Document Title: ");
-		String title = null;
-		while(title == null) {
-			title = scanner.nextLine();
-			title = scanner.nextLine();
-		}
-		for(Document d: database.getInventory())
-		{
-			if(d.title.toLowerCase().contains(title.toLowerCase()))
-			{
-				System.out.println("\n" + d.headerString());
-			}
-		}
-	}
-	
-	private void searchByAuthor()
-	{
-		System.out.print("Document Author: ");
-		String author = null;
-		while(author == null) {
-			author = scanner.nextLine();
-			author = scanner.nextLine();
-		}
-		for(Document d: database.getInventory())
-		{
-			if(d.authorName.toLowerCase().contains(author.toLowerCase()))
-			{
-				System.out.println("\n" + d.headerString());
-			}
-		}
-	}
-	private void searchByISBN()
-	{
-		System.out.print("Document ISBN: ");
-		String isbn = null;
-		while(isbn == null) {
-			isbn = scanner.nextLine();
-			isbn = scanner.nextLine();
-		}
-		for(Document d: database.getInventory())
-		{
-			if(d.ISBN.equals(isbn))
-			{
-				System.out.println("\n" + d.headerString());
-			}
-		}
-	}
-	private void searchByPrice()
-	{
-		System.out.print("Document Price: ");
-		double price = 0;
-		while(price == 0) {
-			price = scanner.nextDouble();
-		}
-		for(Document d: database.getInventory())
-		{
-			if(d.price == price)
-			{
-				System.out.println("\n" + d.headerString());
-			}
-		}
-	}
-	
-	private void placeOrder()
-	{
-		searchInventory();
-		
-		System.out.print("Please enter the title of the document you would like to order: ");
-		String title = scanner.nextLine();
-		System.out.print("\nPlease enter the author of the document you would like to order: ");
-		String author = scanner.nextLine();
-		
-		for(Document d: database.getInventory())
-		{
-			if(d.title.equals(title) && d.authorName.equals(author))
-			{
-				if(d.quantity > 0)
-				{
-					boolean validOrder= false;
-					int numOfCopies = -1;
-					while(!validOrder)
-					{
-						System.out.print("\nWe have " + d.quantity + " copies left, how many would you like to order? ");
-						numOfCopies = -1;
-						while(numOfCopies == -1)
-							numOfCopies = scanner.nextInt();
-						if(numOfCopies > d.quantity)
-						{
-							System.out.print("\nSorry we do not have that many copies available, would you like to try again? [Y/N] ");
-							scanner.nextLine();
-							String response = scanner.nextLine();
-							response = response.toLowerCase();
-							if(response.equals("n"))
-							{
-								return;
-							}
-						}
-						else
-						{
-							validOrder = true;
-						}
-					}
-					
-					if(validOrder)
-					{
-						enterShippingInfo();
-						makePayment(d, numOfCopies);
-						
-						Document a = d;
-						a.quantity = a.quantity - numOfCopies;
-						database.updateDocument(d, a);
-					}
-				}
-				else
-				{
-					System.out.println("Unfortunately we are all out of our copies of " + title);
-				}
-			}
-		}
-		
-		System.out.println("\n author: " + author + " title: " + title);
-		
-	}
-	
-	private void enterShippingInfo()
-	{
-		System.out.print("\nWhere would you like this sent to?\nCity: ");
-		scanner.nextLine();
-		String city = scanner.nextLine();
-		System.out.print("Street: ");
-		String street = scanner.nextLine();
-		System.out.print("House/apartment number: ");
-		String houseNumber = scanner.nextLine();	// Assumed you could have aprtment '900a', so i used string instead of int
-		System.out.print("Province: ");
-		String province = scanner.nextLine();
-		
-		System.out.println("Your item will be shipped to " + houseNumber + " " + street + ", " + city + " " + province);
-	}
-	
-	private void makePayment(Document doc, int numOfCopies)
-	{
-		
-	}
-	
 	
 	private int getMenuSelection() {
 		if(scanner.hasNextInt()) return scanner.nextInt();
@@ -315,11 +135,11 @@ public class Client implements Constants{
 			pressEnter();
 			break;
 		case 2:
-			searchInventory();
+			ClientSearchHelper.searchInventory();
 			pressEnter();
 			break;
 		case 3:
-			placeOrder();
+			ClientPlaceOrderHelper.placeOrder();
 			pressEnter();
 			break;
 		case 4:
@@ -363,11 +183,11 @@ public class Client implements Constants{
 			pressEnter();
 			break;
 		case 3:
-			searchInventory();
+			ClientSearchHelper.searchInventory();
 			pressEnter();
 			break;
 		case 4:
-			placeOrder();
+			ClientPlaceOrderHelper.placeOrder();
 			pressEnter();
 			break;
 		case 5:
