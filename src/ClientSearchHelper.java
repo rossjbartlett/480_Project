@@ -6,7 +6,7 @@ public class ClientSearchHelper {
 		Database database = Database.getInstance();
 		Scanner scanner = new Scanner(System.in);
 		
-		System.out.print("What would you like to search for?  ");
+		System.out.print("What would you like to search for?   ");
 		String search = null;
 		while(search == null) {
 			//search = scanner.nextLine();

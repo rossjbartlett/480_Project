@@ -206,6 +206,36 @@ public class Client implements Constants{
 		return quit;
 	}
 
+	private int getOperatorMenuChoice(){
+		System.out.println("Please select one of the following operations:\n"
+				+ "1. Add Item\n"
+				+ "2. Edit Item\n"
+				+ "3. Remove Item\n" 
+				+ "4. Quit\n"
+				+ "Enter your choice:\n");
+		return getMenuSelection();
+	}
+	private int runOperatorMenu() {
+		int quit = 0;
+		switch(getOperatorMenuChoice()){
+		case 1:
+			OperatorHelper.addItem();
+			break;
+		case 2:
+			OperatorHelper.editItem();
+			break;
+		case 3:
+			OperatorHelper.removeItem();
+			break;
+		case 4:
+			quit = 1;
+			break;
+		default:
+			System.out.println("\nNot a valid input.\n");
+			pressEnter();
+		}
+		return quit;
+	}
 
 	private void runLoginMenu() {
 		System.out.println("Please enter your login information.");
@@ -234,7 +264,7 @@ public class Client implements Constants{
 		while(quit==0) { 
 			switch(demo.currentUser.getType()) {
 			case OPERATOR_TYPE:
-				//quit = demo.runOperatorMenu(); // TODO 
+				quit = demo.runOperatorMenu();
 				break;
 			case ORDINARY_BUYER_TYPE:
 				quit = demo.runOrdinaryBuyerMenu();

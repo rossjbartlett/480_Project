@@ -9,7 +9,7 @@ public class ClientPlaceOrderHelper {
 		Scanner scanner = new Scanner(System.in);
 		Database database = Database.getInstance();
 		
-		System.out.print("Please enter the title of the document you would like to order: ");
+		System.out.print("Please enter the title of the document you would like to order:  ");
 		String title = scanner.nextLine();
 		System.out.print("\nPlease enter the author of the document you would like to order: ");
 		String author = scanner.nextLine();
