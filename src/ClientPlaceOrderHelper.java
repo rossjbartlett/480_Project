@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class ClientPlaceOrderHelper {
@@ -12,11 +13,12 @@ public class ClientPlaceOrderHelper {
 		String title = scanner.nextLine();
 		System.out.print("\nPlease enter the author of the document you would like to order: ");
 		String author = scanner.nextLine();
-		
+		boolean foundDoc = false;
 		for(Document d: database.getInventory())
 		{
 			if(d.title.toLowerCase().equals(title.toLowerCase()) && d.authorName.toLowerCase().equals(author.toLowerCase()))
 			{
+				foundDoc = true;
 				if(d.quantity > 0)
 				{
 					boolean validOrder= false;
@@ -46,12 +48,14 @@ public class ClientPlaceOrderHelper {
 					
 					if(validOrder)
 					{
-						enterShippingInfo(scanner);
-						makePayment(d, numOfCopies);
-						
-						Document a = d;
-						a.quantity = a.quantity - numOfCopies;
-						database.updateDocument(d, a);
+						boolean purchased = makePayment(d, numOfCopies, scanner);
+						if(purchased)
+						{
+							enterShippingInfo(scanner);
+							Document a = d;
+							a.quantity = a.quantity - numOfCopies;
+							database.updateDocument(d, a);
+						}
 					}
 				}
 				else
@@ -61,7 +65,8 @@ public class ClientPlaceOrderHelper {
 			}
 		}
 		
-		System.out.println("\n author: " + author + " title: " + title);
+		if(!foundDoc)
+			System.out.println("Unfortunately we could not find that book, please try again");
 		
 	}
 	
@@ -80,8 +85,52 @@ public class ClientPlaceOrderHelper {
 		System.out.println("Your item will be shipped to " + houseNumber + " " + street + ", " + city + " " + province);
 	}
 	
-	private static void makePayment(Document doc, int numOfCopies)
+	private static boolean makePayment(Document doc, int numOfCopies, Scanner scanner)
 	{
+		System.out.printf("The total for your order comes to $%.2f\n", doc.price*numOfCopies);
+		System.out.print("Please enter your credit card number (We only accept Visa and Mastercard): ");
+		String creditCard = scanner.nextLine();
+		creditCard = creditCard.replace("-",  "");
+		creditCard = creditCard.replace(" ",  "");
+		int cardNum = Integer.parseInt(creditCard);
+		
+		int counter = 1;
+		int sum = 0;
+		
+		for(int i = 0; i < 16; i++)
+		{
+			if(counter == 0)
+			{
+				counter = 1;
+				
+				int tmp = cardNum %10;
+				tmp *= 2;
+				if(tmp > 9)
+				{
+					tmp = (tmp%10) + (tmp/10);
+				}
+				
+				sum += tmp;
+				
+			}
+			else
+			{
+				counter = 0;
+				sum += cardNum%10;
+			}
+			cardNum /= 10;
+		}
+		
+		if(sum %10 == 0)
+		{
+			System.out.println("Card accepting, ordering your document now...");
+			return true;
+		}
+		else
+		{
+			System.out.println("Not a valid credit card, please try again");
+			return false;
+		}
 		
 	}
 	
