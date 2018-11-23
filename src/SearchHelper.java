@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
-public class ClientSearchHelper {
+public class SearchHelper {
 	
-	static public void searchInventory() {
+	static public Document searchInventory() {
 		Database database = Database.getInstance();
 		Scanner scanner = new Scanner(System.in);
 		
@@ -30,12 +30,19 @@ public class ClientSearchHelper {
 				System.out.println("\n" + d.headerString());
 				foundItem = true;
 			}
+			
+			if(foundItem) {
+				scanner.close();
+				return d;
+			}
 		}
 		
 		if(!foundItem)
 		{
 			System.out.println("Sorry we couldn't find the item you were looking for.");
 		}
+		scanner.close();
+		return null;
 	}
 
 }

@@ -135,7 +135,7 @@ public class Client implements Constants{
 			pressEnter();
 			break;
 		case 2:
-			ClientSearchHelper.searchInventory();
+			SearchHelper.searchInventory();
 			pressEnter();
 			break;
 		case 3:
@@ -183,7 +183,7 @@ public class Client implements Constants{
 			pressEnter();
 			break;
 		case 3:
-			ClientSearchHelper.searchInventory();
+			SearchHelper.searchInventory();
 			pressEnter();
 			break;
 		case 4:
@@ -220,12 +220,15 @@ public class Client implements Constants{
 		switch(getOperatorMenuChoice()){
 		case 1:
 			OperatorHelper.addItem();
+			pressEnter();
 			break;
 		case 2:
 			OperatorHelper.editItem();
+			pressEnter();
 			break;
 		case 3:
 			OperatorHelper.removeItem();
+			pressEnter();
 			break;
 		case 4:
 			quit = 1;

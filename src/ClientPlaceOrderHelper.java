@@ -5,7 +5,7 @@ public class ClientPlaceOrderHelper {
 
 	static public void placeOrder()
 	{
-		ClientSearchHelper.searchInventory();
+		SearchHelper.searchInventory();
 		Scanner scanner = new Scanner(System.in);
 		Database database = Database.getInstance();
 		
