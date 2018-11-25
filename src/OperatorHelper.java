@@ -23,10 +23,11 @@ public class OperatorHelper {
 		System.out.println("Please enter the price: ");
 		double price = readDouble(scanner);
 		
-		System.out.println("Please enter the doucment type: "
+		System.out.println("Please enter the doucment type:\n "
 				+ "1: Book\n"
 				+ "2: Magazine\n"
-				+ "3: Journal\n");
+				+ "3: Journal\n"
+				+ "Enter your choice:\n");
 		int type = readInt(scanner);
 		Database d = Database.getInstance();
 		
@@ -120,9 +121,9 @@ public class OperatorHelper {
 			return scanner.nextDouble();
 		}catch(InputMismatchException e){
 			System.out.println("Number must be a double, please try again");
-			readDouble(scanner);
+			scanner.nextLine();
+			return readDouble(scanner);
 		}
-		return 0;
 	}
 	
 
@@ -131,8 +132,8 @@ public class OperatorHelper {
 			return scanner.nextInt();
 		}catch(InputMismatchException e){
 			System.out.println("Number must be a integer, please try again");
-			readInt(scanner);
+			scanner.nextLine();
+			return readInt(scanner);
 		}
-		return 0;
 	}
 }
