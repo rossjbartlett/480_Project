@@ -15,4 +15,5 @@ public class Journal extends Document {
 	public String headerString() {
 		return ("Journal: "+title+" by "+authorName+", $"+price);
 	}
+
 }

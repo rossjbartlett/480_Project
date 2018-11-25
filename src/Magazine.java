@@ -15,4 +15,6 @@ public class Magazine extends Document {
 	public String headerString() {
 		return ("Magazine: "+title+" by "+authorName+", $"+price);
 	}
+
+
 }

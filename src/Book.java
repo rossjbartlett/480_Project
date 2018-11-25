@@ -15,4 +15,5 @@ public class Book extends Document {
 		return ("Book: "+title+" by "+authorName+", $"+price);
 	}
 
+
 }

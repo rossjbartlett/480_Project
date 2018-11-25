@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class OperatorHelper {
@@ -20,15 +21,13 @@ public class OperatorHelper {
 		String ISBN = scanner.nextLine();
 		
 		System.out.println("Please enter the price: ");
-		while(!scanner.hasNextDouble()) {}
-		double price = scanner.nextDouble();
+		double price = readDouble(scanner);
 		
 		System.out.println("Please enter the doucment type: "
 				+ "1: Book\n"
 				+ "2: Magazine\n"
 				+ "3: Journal\n");
-		while(!scanner.hasNextInt()) {}
-		int type = scanner.nextInt();
+		int type = readInt(scanner);
 		Database d = Database.getInstance();
 		
 		if(type == 1) {
@@ -48,22 +47,33 @@ public class OperatorHelper {
 		}
 	}
 
-	/*
-	  			+ "1. title\n"
-				+ "2. author name\n"
-				+ "3. price\n" 
-				+ "4. quantity\n"
-	 */
+
 	static public void editItem(Scanner scanner, int choice) {
+		
+		scanner.nextLine();
+
+		Document d = SearchHelper.searchInventory();
 		
 		switch(choice){
 		case 1:
+			System.out.println("Please enter the new title:");
+			String title = scanner.nextLine();
+			d.setTitle(title);
 			break;
 		case 2:
+			System.out.println("Please enter the new author name:");
+			String authorName = scanner.nextLine();
+			d.setAuthorName(authorName);
 			break;
 		case 3:
+			System.out.println("Please enter the new price:");
+			double price = readDouble(scanner);
+			d.setPrice(price);
 			break;
 		case 4:
+			System.out.println("Please enter the new quantity:");
+			int quantity = readInt(scanner);
+			d.setQuantity(quantity);
 			break;
 		default:
 			System.out.println("\nNot a valid input.\n");
@@ -105,4 +115,24 @@ public class OperatorHelper {
 	}
 	
 
+	private static double readDouble(Scanner scanner) {
+		try {
+			return scanner.nextDouble();
+		}catch(InputMismatchException e){
+			System.out.println("Number must be a double, please try again");
+			readDouble(scanner);
+		}
+		return 0;
+	}
+	
+
+	private static int readInt(Scanner scanner) {
+		try {
+			return scanner.nextInt();
+		}catch(InputMismatchException e){
+			System.out.println("Number must be a integer, please try again");
+			readInt(scanner);
+		}
+		return 0;
+	}
 }

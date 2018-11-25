@@ -15,7 +15,7 @@ public abstract class Document {
 		this.price = price;
 		quantity = 2;
 	}
-	
+
 	public Document(Document document)
 	{
 		title = document.title;
@@ -27,6 +27,26 @@ public abstract class Document {
 	}
 	
 	
+
+	
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	public abstract String headerString();
+	
 	
 }
