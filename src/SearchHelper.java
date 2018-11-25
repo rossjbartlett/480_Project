@@ -32,7 +32,6 @@ public class SearchHelper {
 			}
 			
 			if(foundItem) {
-				scanner.close();
 				return d;
 			}
 		}
@@ -41,7 +40,6 @@ public class SearchHelper {
 		{
 			System.out.println("Sorry we couldn't find the item you were looking for.");
 		}
-		scanner.close();
 		return null;
 	}
 

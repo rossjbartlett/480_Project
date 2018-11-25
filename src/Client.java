@@ -215,19 +215,31 @@ public class Client implements Constants{
 				+ "Enter your choice:\n");
 		return getMenuSelection();
 	}
+	
+
+	private int getEditChoice(){
+		System.out.println("What feild would you like to edit:\n"
+				+ "1. title\n"
+				+ "2. author name\n"
+				+ "3. price\n" 
+				+ "4. quantity\n"
+				+ "Enter your choice:\n");
+		return getMenuSelection();
+	}
+	
 	private int runOperatorMenu() {
 		int quit = 0;
 		switch(getOperatorMenuChoice()){
 		case 1:
-			OperatorHelper.addItem();
+			OperatorHelper.addItem(scanner);
 			pressEnter();
 			break;
 		case 2:
-			OperatorHelper.editItem();
+			OperatorHelper.editItem(scanner, getEditChoice());
 			pressEnter();
 			break;
 		case 3:
-			OperatorHelper.removeItem();
+			OperatorHelper.removeItem(scanner);
 			pressEnter();
 			break;
 		case 4:
