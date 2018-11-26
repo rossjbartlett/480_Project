@@ -1,80 +1,115 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ClientPlaceOrderHelper {
+	
+	static private Document placeOrderSearch(Scanner scanner)
+	{
+		Database database = Database.getInstance();
+		ArrayList<Document> searchResults = new ArrayList<>();
+		System.out.print("What would you like to search for?   ");
+		String search = null;
+		while(search == null) {
+			search = scanner.nextLine();
+		}
+		
+		System.out.println("\nPlease select one of the following items");
+		int i = 0;
+		for(Document d: database.getInventory())
+		{
+			if(d.title.toLowerCase().contains(search.toLowerCase()))
+			{
+				System.out.println("\n[" + i + "] " + d.headerString());
+				searchResults.add(d);
+			}
+			else if(d.authorName.toLowerCase().contains(search.toLowerCase()))
+			{
+				System.out.println("\n[" + i + "] " + d.headerString());
+				searchResults.add(d);
+			}
+			else if(d.ISBN.toLowerCase().contains(search.toLowerCase()))
+			{
+				System.out.println("\n[" + i + "] " + d.headerString());
+				searchResults.add(d);
+			}
+			i++;
+		}
+		int item = -1;
+		if(scanner.hasNextInt())
+		{
+			item = scanner.nextInt();
+			scanner.nextLine();
+		}
+		
+		if(item == -1 || item > i - 1)
+		{
+			return null;
+		}
+		else
+		{
+			return searchResults.get(item);
+		}
+		
+	}
+	
 
 	static public void placeOrder()
 	{
-		SearchHelper.searchInventory();
+		//SearchHelper.searchInventory();
 		Scanner scanner = new Scanner(System.in);
 		Database database = Database.getInstance();
-
-		System.out.print("Please enter the title of the document you would like to order:  ");
-		String title = scanner.nextLine();
-		System.out.print("\nPlease enter the author of the document you would like to order: ");
-		String author = scanner.nextLine();
-		boolean foundDoc = false;
-		for(Document d: database.getInventory())
+		
+		Document d = ClientPlaceOrderHelper.placeOrderSearch(scanner);
+		boolean validOrder = false;
+		
+		if(d != null)
 		{
-			if(d.title.toLowerCase().equals(title.toLowerCase()) && d.authorName.toLowerCase().equals(author.toLowerCase()))
+			int numOfCopies = -1;
+			while(!validOrder)
 			{
-				foundDoc = true;
-				if(d.quantity > 0)
+				System.out.print("\nWe have " + d.quantity + " copies left, how many would you like to order? ");
+				numOfCopies = -1;
+				while(numOfCopies == -1) {
+					numOfCopies = scanner.nextInt();
+					scanner.nextLine(); // consume '\n'
+				}
+				if(numOfCopies > d.quantity)
 				{
-					boolean validOrder= false;
-					int numOfCopies = -1;
-					while(!validOrder)
+					System.out.print("\nSorry we do not have that many copies available, would you like to try again? [Y/N] ");
+					scanner.nextLine();
+					String response = scanner.nextLine();
+					response = response.toLowerCase();
+					if(response.equals("n"))
 					{
-						System.out.print("\nWe have " + d.quantity + " copies left, how many would you like to order? ");
-						numOfCopies = -1;
-						while(numOfCopies == -1) {
-							numOfCopies = scanner.nextInt();
-							scanner.nextLine(); // consume '\n'
-						}
-						if(numOfCopies > d.quantity)
-						{
-							System.out.print("\nSorry we do not have that many copies available, would you like to try again? [Y/N] ");
-							scanner.nextLine();
-							String response = scanner.nextLine();
-							response = response.toLowerCase();
-							if(response.equals("n"))
-							{
-								return;
-							}
-						}
-						else
-						{
-							validOrder = true;
-						}
-					}
-
-					if(validOrder)
-					{
-						boolean purchased = makePayment(d, numOfCopies, scanner);
-						if(purchased)
-						{
-							enterShippingInfo(scanner);
-							Document a = d;
-							a.quantity = a.quantity - numOfCopies;
-							database.updateDocument(d, a);
-						}
+						return;
 					}
 				}
 				else
 				{
-					System.out.println("Unfortunately we are all out of our copies of " + title);
+					validOrder = true;
+				}
+			}
+			if(validOrder)
+			{
+				boolean purchased = makePayment(d, numOfCopies, scanner);
+				if(purchased)
+				{
+					enterShippingInfo(scanner);
+					Document a = d;
+					a.quantity = a.quantity - numOfCopies;
+					database.updateDocument(d, a);
 				}
 			}
 		}
-
-		if(!foundDoc)
+		else
+		{
 			System.out.println("Unfortunately we could not find that book, please try again");
-
+		}
 	}
 
 	private static void enterShippingInfo(Scanner scanner)
 	{
 		System.out.print("\nWhere would you like this sent to?\nCity: ");
-		scanner.nextLine();
 		String city = scanner.nextLine();
 		System.out.print("Street: ");
 		String street = scanner.nextLine();
