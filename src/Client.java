@@ -87,9 +87,8 @@ public class Client implements Constants{
 	private void pressEnter() {
 		//make menu wait till enter button is pressed
 		System.out.println("<<Press Enter to continue>>");
+		//scanner.nextLine();
 		scanner.nextLine();
-		scanner.nextLine();
-		
 	}
 
 	private void displayInventory() {
@@ -110,8 +109,12 @@ public class Client implements Constants{
 	
 	
 	private int getMenuSelection() {
-		if(scanner.hasNextInt()) return scanner.nextInt();
-		else return -1; // they input a non-int
+		int choice = -1;
+		if(scanner.hasNextInt()) {
+			choice = scanner.nextInt();
+		}
+		scanner.nextLine();
+		return choice;
 	}
 
 	private int getOrdinaryBuyerMenuChoice(){
@@ -135,7 +138,7 @@ public class Client implements Constants{
 			pressEnter();
 			break;
 		case 2:
-			SearchHelper.searchInventory();
+			SearchHelper.searchInventory(scanner);
 			pressEnter();
 			break;
 		case 3:
@@ -183,7 +186,7 @@ public class Client implements Constants{
 			pressEnter();
 			break;
 		case 3:
-			SearchHelper.searchInventory();
+			SearchHelper.searchInventory(scanner);
 			pressEnter();
 			break;
 		case 4:
@@ -254,7 +257,7 @@ public class Client implements Constants{
 			pressEnter();
 			break;
 		case 6:
-			SearchHelper.searchInventory();
+			SearchHelper.searchInventory(scanner);
 			pressEnter();
 			break;
 		case 7:

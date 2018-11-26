@@ -7,33 +7,42 @@ public class ClientPlaceOrderHelper {
 	{
 		Database database = Database.getInstance();
 		ArrayList<Document> searchResults = new ArrayList<>();
-		System.out.print("What would you like to search for?   ");
+		System.out.print("What would you like to search for? ");
 		String search = null;
 		while(search == null) {
 			search = scanner.nextLine();
 		}
 		
-		System.out.println("\nPlease select one of the following items");
-		int i = 0;
+		//int i = 0;
 		for(Document d: database.getInventory())
 		{
 			if(d.title.toLowerCase().contains(search.toLowerCase()))
 			{
-				System.out.println("\n[" + i + "] " + d.headerString());
+//				System.out.println("\n[" + i + "] " + d.headerString());
 				searchResults.add(d);
 			}
 			else if(d.authorName.toLowerCase().contains(search.toLowerCase()))
 			{
-				System.out.println("\n[" + i + "] " + d.headerString());
+//				System.out.println("\n[" + i + "] " + d.headerString());
 				searchResults.add(d);
 			}
 			else if(d.ISBN.toLowerCase().contains(search.toLowerCase()))
 			{
-				System.out.println("\n[" + i + "] " + d.headerString());
 				searchResults.add(d);
 			}
-			i++;
+//			i++;
 		}
+		if(searchResults.isEmpty()) {
+			//No items found
+			return null;
+		}
+		
+		System.out.println("\nPlease select one of the following items");
+		for(int i = 0 ; i < searchResults.size(); i++) {
+			System.out.println("\n[" + i + "] " + searchResults.get(i).headerString());
+
+		}
+		
 		int item = -1;
 		if(scanner.hasNextInt())
 		{
@@ -41,7 +50,7 @@ public class ClientPlaceOrderHelper {
 			scanner.nextLine();
 		}
 		
-		if(item == -1 || item > i - 1)
+		if(item < 0 || item >= searchResults.size())
 		{
 			return null;
 		}
@@ -70,7 +79,7 @@ public class ClientPlaceOrderHelper {
 				System.out.print("\nWe have " + d.quantity + " copies left, how many would you like to order? ");
 				numOfCopies = -1;
 				while(numOfCopies == -1) {
-					numOfCopies = scanner.nextInt();
+					if(scanner.hasNextInt()) numOfCopies = scanner.nextInt();
 					scanner.nextLine(); // consume '\n'
 				}
 				if(numOfCopies > d.quantity)
@@ -109,7 +118,7 @@ public class ClientPlaceOrderHelper {
 		}
 		else
 		{
-			System.out.println("Unfortunately we could not find that book, please try again");
+			System.out.println("No matching items, please try again.");
 		}
 	}
 

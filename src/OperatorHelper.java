@@ -5,9 +5,7 @@ public class OperatorHelper {
 
 
 	static public void addItem(Scanner scanner) {
-		
-		scanner.nextLine();
-		
+				
 		System.out.println("Please enter the title: ");
 		String title = scanner.nextLine();
 
@@ -52,9 +50,7 @@ public class OperatorHelper {
 
 	static public void editItem(Scanner scanner, int choice) {
 		
-		scanner.nextLine();
-
-		Document d = SearchHelper.searchInventory();
+		Document d = SearchHelper.searchInventory(scanner);
 		
 		switch(choice){
 		case 1:
@@ -86,11 +82,10 @@ public class OperatorHelper {
 
 	static public void removeItem(Scanner scanner) {
 		
-		Document d = SearchHelper.searchInventory();
+		Document d = SearchHelper.searchInventory(scanner);
 		if(d == null)
 			return;
 		
-		scanner.nextLine();
 		
 		System.out.println("Would you like to delete this document? [Y/N]");
 		System.out.println("Choice:");
@@ -104,11 +99,11 @@ public class OperatorHelper {
 		}
 			
 		if (choice.equals("Y") || choice.equals("y") ) {
-			System.out.println("The document will be removed");
+			System.out.println("Document removed.");
 			Database.getInstance().removeDocument(d);
 		}
 		else if (choice.equals("N") || choice.equals("n") ) {
-			System.out.println("The document will not be deleted");
+			System.out.println("Document not deleted.");
 		}
 		else {
 			System.out.println("invalid menu selection, no action will be taken");

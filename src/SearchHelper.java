@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class SearchHelper {
 	
-	static public Document searchInventory() {
+	static public Document searchInventory(Scanner scanner) {
 		Database database = Database.getInstance();
-		Scanner scanner = new Scanner(System.in);
+		//Scanner scanner = new Scanner(System.in);
 		
 		System.out.print("What would you like to search for?   ");
 		String search = null;
@@ -31,7 +31,6 @@ public class SearchHelper {
 			}
 			
 			if(foundItem) {
-				scanner.close();
 				return d;
 			}
 		}
@@ -40,7 +39,6 @@ public class SearchHelper {
 		{
 			System.out.println("Sorry we couldn't find the item you were looking for.");
 		}
-		scanner.close();
 		return null;
 	}
 
