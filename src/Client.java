@@ -257,7 +257,7 @@ public class Client implements Constants{
 			pressEnter();
 			break;
 		case 6:
-			SearchHelper.searchInventory(scanner);
+			SearchHelper.search(scanner);
 			pressEnter();
 			break;
 		case 7:
