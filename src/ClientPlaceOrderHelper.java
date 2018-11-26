@@ -88,52 +88,20 @@ public class ClientPlaceOrderHelper {
 
 	private static boolean makePayment(Document doc, int numOfCopies, Scanner scanner)
 	{
-		while(true) {
 			System.out.printf("The total for your order comes to $%.2f\n", doc.price*numOfCopies);
 			System.out.println("Please enter your credit card number (We only accept Visa and Mastercard): ");
 			String creditCard = scanner.nextLine();
 			creditCard = creditCard.replace("-",  "");
 			creditCard = creditCard.replace(" ",  "");
-			int cardNum = Integer.parseInt(creditCard);
-
-			int counter = 1;
-			int sum = 0;
-
-			for(int i = 0; i < 16; i++)
+			
+			if(creditCard.length() == 16)
 			{
-				if(counter == 0)
-				{
-					counter = 1;
-
-					int tmp = cardNum %10;
-					tmp *= 2;
-					if(tmp > 9)
-					{
-						tmp = (tmp%10) + (tmp/10);
-					}
-
-					sum += tmp;
-
-				}
-				else
-				{
-					counter = 0;
-					sum += cardNum%10;
-				}
-				cardNum /= 10;
-			}
-
-			if(sum %10 == 0)
-			{
-				System.out.println("Card accepting, ordering your document now...");
-				return true;
+				System.out.println("Card accepted, placing yourorder now...");
 			}
 			else
 			{
-				System.out.println("Not a valid credit card, please try again");
-				//repeat the card input process
+				System.out.println("Card not accepted, cancelling order.");
 			}
-		}
 
 	}
 
