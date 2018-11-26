@@ -97,10 +97,12 @@ public class ClientPlaceOrderHelper {
 			if(creditCard.length() == 16)
 			{
 				System.out.println("Card accepted, placing yourorder now...");
+				return true;
 			}
 			else
 			{
 				System.out.println("Card not accepted, cancelling order.");
+				return false;
 			}
 
 	}
