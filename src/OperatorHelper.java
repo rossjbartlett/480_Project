@@ -23,7 +23,7 @@ public class OperatorHelper {
 		System.out.println("Please enter the price: ");
 		double price = readDouble(scanner);
 		
-		System.out.println("Please enter the doucment type:\n "
+		System.out.println("Please enter the doucment type:\n"
 				+ "1: Book\n"
 				+ "2: Magazine\n"
 				+ "3: Journal\n"
@@ -44,7 +44,7 @@ public class OperatorHelper {
 			d.addDocument(new Journal(title, aName, contents, ISBN, price));
 		}
 		else {
-			System.out.println("Ivalid menue selection, document not added");
+			System.out.println("Invalid menu selection, document not added");
 		}
 	}
 

@@ -26,10 +26,6 @@ public abstract class Document {
 		quantity = document.quantity;
 	}
 	
-	
-
-	
-	
 	public void setTitle(String title) {
 		this.title = title;
 	}

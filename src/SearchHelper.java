@@ -9,7 +9,6 @@ public class SearchHelper {
 		System.out.print("What would you like to search for?   ");
 		String search = null;
 		while(search == null) {
-			//search = scanner.nextLine();
 			search = scanner.nextLine();
 		}
 		boolean foundItem = false;

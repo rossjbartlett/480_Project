@@ -1,4 +1,3 @@
-import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class ClientPlaceOrderHelper {
@@ -8,7 +7,7 @@ public class ClientPlaceOrderHelper {
 		SearchHelper.searchInventory();
 		Scanner scanner = new Scanner(System.in);
 		Database database = Database.getInstance();
-		
+
 		System.out.print("Please enter the title of the document you would like to order:  ");
 		String title = scanner.nextLine();
 		System.out.print("\nPlease enter the author of the document you would like to order: ");
@@ -27,8 +26,10 @@ public class ClientPlaceOrderHelper {
 					{
 						System.out.print("\nWe have " + d.quantity + " copies left, how many would you like to order? ");
 						numOfCopies = -1;
-						while(numOfCopies == -1)
+						while(numOfCopies == -1) {
 							numOfCopies = scanner.nextInt();
+							scanner.nextLine(); // consume '\n'
+						}
 						if(numOfCopies > d.quantity)
 						{
 							System.out.print("\nSorry we do not have that many copies available, would you like to try again? [Y/N] ");
@@ -45,7 +46,7 @@ public class ClientPlaceOrderHelper {
 							validOrder = true;
 						}
 					}
-					
+
 					if(validOrder)
 					{
 						boolean purchased = makePayment(d, numOfCopies, scanner);
@@ -64,12 +65,12 @@ public class ClientPlaceOrderHelper {
 				}
 			}
 		}
-		
+
 		if(!foundDoc)
 			System.out.println("Unfortunately we could not find that book, please try again");
-		
+
 	}
-	
+
 	private static void enterShippingInfo(Scanner scanner)
 	{
 		System.out.print("\nWhere would you like this sent to?\nCity: ");
@@ -81,58 +82,60 @@ public class ClientPlaceOrderHelper {
 		String houseNumber = scanner.nextLine();	// Assumed you could have apartment '900a', so i used string instead of int
 		System.out.print("Province: ");
 		String province = scanner.nextLine();
-		
+
 		System.out.println("Your item will be shipped to " + houseNumber + " " + street + ", " + city + " " + province);
 	}
-	
+
 	private static boolean makePayment(Document doc, int numOfCopies, Scanner scanner)
 	{
-		System.out.printf("The total for your order comes to $%.2f\n", doc.price*numOfCopies);
-		System.out.print("Please enter your credit card number (We only accept Visa and Mastercard): ");
-		String creditCard = scanner.nextLine();
-		creditCard = creditCard.replace("-",  "");
-		creditCard = creditCard.replace(" ",  "");
-		int cardNum = Integer.parseInt(creditCard);
-		
-		int counter = 1;
-		int sum = 0;
-		
-		for(int i = 0; i < 16; i++)
-		{
-			if(counter == 0)
+		while(true) {
+			System.out.printf("The total for your order comes to $%.2f\n", doc.price*numOfCopies);
+			System.out.println("Please enter your credit card number (We only accept Visa and Mastercard): ");
+			String creditCard = scanner.nextLine();
+			creditCard = creditCard.replace("-",  "");
+			creditCard = creditCard.replace(" ",  "");
+			int cardNum = Integer.parseInt(creditCard);
+
+			int counter = 1;
+			int sum = 0;
+
+			for(int i = 0; i < 16; i++)
 			{
-				counter = 1;
-				
-				int tmp = cardNum %10;
-				tmp *= 2;
-				if(tmp > 9)
+				if(counter == 0)
 				{
-					tmp = (tmp%10) + (tmp/10);
+					counter = 1;
+
+					int tmp = cardNum %10;
+					tmp *= 2;
+					if(tmp > 9)
+					{
+						tmp = (tmp%10) + (tmp/10);
+					}
+
+					sum += tmp;
+
 				}
-				
-				sum += tmp;
-				
+				else
+				{
+					counter = 0;
+					sum += cardNum%10;
+				}
+				cardNum /= 10;
+			}
+
+			if(sum %10 == 0)
+			{
+				System.out.println("Card accepting, ordering your document now...");
+				return true;
 			}
 			else
 			{
-				counter = 0;
-				sum += cardNum%10;
+				System.out.println("Not a valid credit card, please try again");
+				//repeat the card input process
 			}
-			cardNum /= 10;
 		}
-		
-		if(sum %10 == 0)
-		{
-			System.out.println("Card accepting, ordering your document now...");
-			return true;
-		}
-		else
-		{
-			System.out.println("Not a valid credit card, please try again");
-			return false;
-		}
-		
+
 	}
-	
-	
+
+
 }

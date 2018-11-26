@@ -211,14 +211,17 @@ public class Client implements Constants{
 				+ "1. Add Item\n"
 				+ "2. Edit Item\n"
 				+ "3. Remove Item\n" 
-				+ "4. Quit\n"
+				+ "4. View Inventory\n"
+				+ "5. View PromoList\n"
+				+ "6. Search Inventory\n"
+				+ "7. Quit\n"
 				+ "Enter your choice:\n");
 		return getMenuSelection();
 	}
 	
 
 	private int getEditChoice(){
-		System.out.println("What feild would you like to edit:\n"
+		System.out.println("What field would you like to edit:\n"
 				+ "1. title\n"
 				+ "2. author name\n"
 				+ "3. price\n" 
@@ -243,6 +246,18 @@ public class Client implements Constants{
 			pressEnter();
 			break;
 		case 4:
+			displayInventory();
+			pressEnter();
+			break;
+		case 5:
+			displayPromoList();
+			pressEnter();
+			break;
+		case 6:
+			SearchHelper.searchInventory();
+			pressEnter();
+			break;
+		case 7:
 			quit = 1;
 			break;
 		default:
