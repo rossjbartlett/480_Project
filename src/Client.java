@@ -208,7 +208,7 @@ public class Client implements Constants{
 
 	private int getOperatorMenuChoice(){
 		System.out.println("Please select one of the following operations:\n"
-				+ "1. Add Item\n"
+				+ "1. Add Item \n"
 				+ "2. Edit Item\n"
 				+ "3. Remove Item\n" 
 				+ "4. View Inventory\n"
