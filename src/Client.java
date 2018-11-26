@@ -138,7 +138,7 @@ public class Client implements Constants{
 			pressEnter();
 			break;
 		case 2:
-			SearchHelper.searchInventory(scanner);
+			SearchHelper.search(scanner);
 			pressEnter();
 			break;
 		case 3:
@@ -186,7 +186,7 @@ public class Client implements Constants{
 			pressEnter();
 			break;
 		case 3:
-			SearchHelper.searchInventory(scanner);
+			SearchHelper.search(scanner);
 			pressEnter();
 			break;
 		case 4:
