@@ -7,13 +7,13 @@ public abstract class Document {
 	protected double price;
 	protected int quantity;
 	
-	public Document(String title, String authorName, String contents, String iSBN, double price) {
+	public Document(String title, String authorName, String contents, String iSBN, double price, int q) {
 		this.title = title;
 		this.authorName = authorName;
 		this.contents = contents;
 		ISBN = iSBN;
 		this.price = price;
-		quantity = 2;
+		quantity = q;
 	}
 
 	public Document(Document document)

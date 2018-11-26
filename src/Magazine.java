@@ -1,8 +1,8 @@
 
 public class Magazine extends Document {
 
-	public Magazine(String title, String authorName, String contents, String iSBN, double price) {
-		super(title, authorName, contents, iSBN, price);
+	public Magazine(String title, String authorName, String contents, String iSBN, double price, int q) {
+		super(title, authorName, contents, iSBN, price, q);
 	}
 	
 	public Magazine(Magazine document)
@@ -12,7 +12,7 @@ public class Magazine extends Document {
 	
 	@Override
 	public String headerString() {
-		return ("Magazine: "+title+" by "+authorName+", $"+price);
+		return ("Magazine: "+title+" by "+authorName+", $"+price+", QTY: "+quantity);
 	}
 
 

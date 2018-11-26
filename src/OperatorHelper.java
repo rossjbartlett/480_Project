@@ -22,7 +22,8 @@ public class OperatorHelper {
 		
 		System.out.println("Please enter the price: ");
 		double price = readDouble(scanner);
-		
+		System.out.println("Please enter the quantity: ");
+		int quantity = readInt(scanner);
 		System.out.println("Please enter the doucment type:\n"
 				+ "1: Book\n"
 				+ "2: Magazine\n"
@@ -33,15 +34,15 @@ public class OperatorHelper {
 		
 		if(type == 1) {
 			System.out.println("Book added to system");	
-			d.addDocument(new Book(title, aName, contents, ISBN, price));
+			d.addDocument(new Book(title, aName, contents, ISBN, price, quantity));
 		}
 		else if(type == 2) {
 			System.out.println("Magazine added to system");	
-			d.addDocument(new Magazine(title, aName, contents, ISBN, price));
+			d.addDocument(new Magazine(title, aName, contents, ISBN, price, quantity));
 		}
 		else if(type == 3){
 			System.out.println("Journal added to system");	
-			d.addDocument(new Journal(title, aName, contents, ISBN, price));
+			d.addDocument(new Journal(title, aName, contents, ISBN, price, quantity));
 		}
 		else {
 			System.out.println("Invalid menu selection, document not added");

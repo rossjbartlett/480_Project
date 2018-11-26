@@ -67,15 +67,15 @@ public class Client implements Constants{
 				"To sleep, perchance to dream—ay, there's the rub:\n" + 
 				"For in that sleep of death what dreams may come,\n" + 
 				"When we have shuffled off this mortal coil,\n" + 
-				"Must give us pause.\n", "ABC-123-XYZ-456", 12.99);
+				"Must give us pause.\n", "ABC-123-XYZ-456", 12.99,2);
 
 		Magazine magazine = new Magazine("Time Magazine", "Macleans", 
 				"In this edition of Time Magazine, we look at the changing landscape of the economy under Trump.\n", 
-				"654-RJG-123-ASA-112", 3.50);
+				"654-RJG-123-ASA-112", 3.50,3);
 
 		Journal journal = new Journal("Tom's Autobiography", "Tom Wilson", 
 				"I am Tom Wilson - hockey player and proud father. I like hot dogs and the movie Up.\n", 
-				"342-WEQ-521-BDA-542", 9.75);
+				"342-WEQ-521-BDA-542", 9.75,2);
 
 		database.addDocument(book);
 		database.addDocument(magazine);

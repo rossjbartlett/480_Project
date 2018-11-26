@@ -76,7 +76,7 @@ public class ClientPlaceOrderHelper {
 				if(numOfCopies > d.quantity)
 				{
 					System.out.print("\nSorry we do not have that many copies available, would you like to try again? [Y/N] ");
-					scanner.nextLine();
+					//scanner.nextLine();
 					String response = scanner.nextLine();
 					response = response.toLowerCase();
 					if(response.equals("n"))
@@ -96,8 +96,14 @@ public class ClientPlaceOrderHelper {
 				{
 					enterShippingInfo(scanner);
 					Document a = d;
-					a.quantity = a.quantity - numOfCopies;
-					database.updateDocument(d, a);
+					int newQuantity = a.quantity - numOfCopies;
+					if(newQuantity>0) {
+						a.quantity = newQuantity;
+						database.updateDocument(d, a);
+					}
+					else {
+						database.removeDocument(d);
+					}
 				}
 			}
 		}
@@ -131,12 +137,12 @@ public class ClientPlaceOrderHelper {
 			
 			if(creditCard.length() == 16)
 			{
-				System.out.println("Card accepted, placing yourorder now...");
+				System.out.println("Card accepted, placing order now...");
 				return true;
 			}
 			else
 			{
-				System.out.println("Card not accepted, cancelling order.");
+				System.out.println("Card not accepted, must be 16 digits. Cancelling order.");
 				return false;
 			}
 
