@@ -1,9 +1,6 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ClientPlaceOrderHelper {
-	
-	
 	
 
 	static public void placeOrder()
